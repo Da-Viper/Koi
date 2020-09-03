@@ -687,17 +687,10 @@ void MainWindow::on_darkDropIcon_currentIndexChanged(const QString &darkIconUN) 
 
 void MainWindow::on_gtkCheckBox_stateChanged(int gtkEnabled) // GTK theme checkbox logic
 {
-    if (ui->gtkCheckBox->checkState() == 0) {
-        ui->darkGtk->setEnabled(0);
-        ui->lightGtk->setEnabled(0);
-        ui->darkDropGtk->setEnabled(0);
-        ui->lightDropGtk->setEnabled(0);
-    } else {
-        ui->darkGtk->setEnabled(1);
-        ui->lightGtk->setEnabled(1);
-        ui->darkDropGtk->setEnabled(1);
-        ui->lightDropGtk->setEnabled(1);
-    }
+        ui->darkGtk->setEnabled(gtkEnabled);
+        ui->lightGtk->setEnabled(gtkEnabled);
+        ui->darkDropGtk->setEnabled(gtkEnabled);
+        ui->lightDropGtk->setEnabled(gtkEnabled);
 }
 
 void MainWindow::on_lightDropGtk_currentIndexChanged(const QString &lightGtkUN) // Set light gtk theme
@@ -761,59 +754,33 @@ void MainWindow::on_darkScriptBtn_clicked()
 }
 void MainWindow::on_autoCheckBox_stateChanged(int automaticEnabled) // Logic for enabling scheduling of themes
 {
-    if (ui->autoCheckBox->checkState() == 0) {
-        ui->scheduleRadioBtn->setEnabled(0);
+        ui->scheduleRadioBtn->setEnabled(automaticEnabled);
         //ui->sunRadioBtn->setEnabled(0);
-        ui->lightTimeLabel->setEnabled(0);
-        ui->darkTimeLabel->setEnabled(0);
-        ui->lightTimeEdit->setEnabled(0);
-        ui->darkTimeEdit->setEnabled(0);
-        utils.settings->setValue("schedule", false);
+        ui->lightTimeLabel->setEnabled(automaticEnabled);
+        ui->darkTimeLabel->setEnabled(automaticEnabled);
+        ui->lightTimeEdit->setEnabled(automaticEnabled);
+        ui->darkTimeEdit->setEnabled(automaticEnabled);
+        utils.settings->setValue("schedule", automaticEnabled);
         utils.settings->sync();
         ui->resMsg->setText(tr("To disable automatic mode , Koi must be restarted."));
         ui->resMsg->setMessageType(KMessageWidget::Warning);
         ui->resMsg->animatedShow();
-    } else {
-
-        ui->scheduleRadioBtn->setEnabled(1);
-        //ui->sunRadioBtn->setEnabled(1);
-        ui->lightTimeLabel->setEnabled(1);
-        ui->darkTimeLabel->setEnabled(1);
-        ui->lightTimeEdit->setEnabled(1);
-        ui->darkTimeEdit->setEnabled(1);
-        if (ui->scheduleRadioBtn->isChecked() == 0) {
-            ui->lightTimeLabel->setEnabled(0);
-            ui->darkTimeLabel->setEnabled(0);
-            ui->lightTimeEdit->setEnabled(0);
-            ui->darkTimeEdit->setEnabled(0);
-        }
-        utils.settings->setValue("schedule", true);
-        utils.settings->sync();
-        ui->resMsg->setText(tr("To enable automatic mode, Koi must be restarted."));
-        ui->resMsg->setMessageType(KMessageWidget::Warning);
-        ui->resMsg->animatedShow();
-    }
 }
 
 void MainWindow::on_scheduleRadioBtn_toggled(bool scheduleSun) // Toggle between manual schedule, and sun schedule
 {
-    if (ui->sunRadioBtn->isChecked() == 0) {
-        ui->lightTimeLabel->setEnabled(1);
-        ui->darkTimeLabel->setEnabled(1);
-        ui->lightTimeEdit->setEnabled(1);
-        ui->darkTimeEdit->setEnabled(1);
-        scheduleType = "time";
-        utils.settings->setValue("schedule-type", scheduleType);
-        utils.settings->sync();
-    } else {
-        ui->lightTimeLabel->setEnabled(0);
-        ui->darkTimeLabel->setEnabled(0);
-        ui->lightTimeEdit->setEnabled(0);
-        ui->darkTimeEdit->setEnabled(0);
-        scheduleType = "sun";
-        utils.settings->setValue("schedule-type", scheduleType);
-        utils.settings->sync();
+	ui->lightTimeLabel->setEnabled(scheduleSun);
+	ui->darkTimeLabel->setEnabled(scheduleSun);
+	ui->lightTimeEdit->setEnabled(scheduleSun);
+	ui->darkTimeEdit->setEnabled(scheduleSun);
+    if(ui->sunRadioBtn->isChecked() == 0 ){
+    	scheduleType = "time";
+
+    }else {
+    	scheduleType = "sun ";
     }
+    utils.settings->setValue("schedule-type", scheduleType);
+    utils.settings->sync();
 }
 
 void MainWindow::on_lightTimeEdit_userTimeChanged(const QTime &time) // Set light time
@@ -838,19 +805,11 @@ void MainWindow::on_darkTimeEdit_userTimeChanged(const QTime &time) // Set dark 
 
 void MainWindow::on_hiddenCheckBox_stateChanged(int hiddenEnabled) {
     ui->resMsg->animatedShow();
-    if (ui->hiddenCheckBox->checkState() == 0) {
-        utils.settings->setValue("start-hidden", false);
-    } else {
-        utils.settings->setValue("start-hidden", true);
-    }
+    utils.settings->setValue("start-hidden", hiddenEnabled);
 }
 
 void MainWindow::on_notifyCheckBox_stateChanged(int notifyEnabled) {
-    if (ui->notifyCheckBox->checkState() == 0) {
-        utils.settings->setValue("notify", false);
-    } else {
-        utils.settings->setValue("notify", true);
-    }
+        utils.settings->setValue("notify", notifyEnabled);
 }
 
 // Menubar actions
