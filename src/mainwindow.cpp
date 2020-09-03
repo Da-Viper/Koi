@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     actionRes->setIcon(QIcon::fromTheme("view-refresh"));
     connect(actionRes, &QAction::triggered, this, &MainWindow::on_actionRestart_triggered);
     ui->resMsg->addAction(actionRes);
+
 }
 
 MainWindow::~MainWindow() {
@@ -585,22 +586,14 @@ void MainWindow::on_lightDropWidget_currentIndexChanged(const QString &lightWidg
     }
 }
 
-//runcommand dark
+//runcommand light
 void MainWindow::on_lightScriptCheckBox_stateChanged(int lightScriptEnabled){
-    if (lightScriptEnabled == false) {
-    	ui->lightScriptBtn->setEnabled(false);
-    } else {
-    	ui->lightScriptBtn->setEnabled(true);
-    }
+    	ui->lightScriptBtn->setEnabled(lightScriptEnabled);
 }
 
 //runcommand dark
 void MainWindow::on_darkScriptCheckBox_stateChanged(int darkScriptEnabled){
-    if ( darkScriptEnabled == false) {
-    	ui->darkScriptBtn->setEnabled(false);
-    } else {
-    	ui->darkScriptBtn->setEnabled(true);
-    }
+    	ui->darkScriptBtn->setEnabled(darkScriptEnabled);
 }
 void MainWindow::on_darkDropWidget_currentIndexChanged(const QString &darkWidgetUN) {
     darkWidget = darkWidgetUN;
@@ -640,49 +633,27 @@ void MainWindow::on_darkDropDecoration_currentIndexChanged(const QString &darkDe
 
 void MainWindow::on_styleCheckBox_stateChanged(int styleEnabled) // Plasma style checkbox logic
 {
-    if (ui->styleCheckBox->checkState() == 0) {
-        ui->darkStyle->setEnabled(0);
-        ui->lightStyle->setEnabled(0);
-        ui->darkDropStyle->setEnabled(0);
-        ui->lightDropStyle->setEnabled(0);
-    } else {
-        ui->darkStyle->setEnabled(1);
-        ui->lightStyle->setEnabled(1);
-        ui->darkDropStyle->setEnabled(1);
-        ui->lightDropStyle->setEnabled(1);
-    }
+        ui->darkStyle->setEnabled(styleEnabled);
+        ui->lightStyle->setEnabled(styleEnabled);
+        ui->darkDropStyle->setEnabled(styleEnabled);
+        ui->lightDropStyle->setEnabled(styleEnabled);
 }
 
 void MainWindow::on_colorCheckBox_stateChanged(int colorEnabled) // Color scheme checkbox logic
 {
-    if (ui->colorCheckBox->checkState() == 0) {
-        ui->darkColor->setEnabled(0);
-        ui->lightColor->setEnabled(0);
-        ui->darkDropColor->setEnabled(0);
-        ui->lightDropColor->setEnabled(0);
-    } else {
-        ui->darkColor->setEnabled(1);
-        ui->lightColor->setEnabled(1);
-        ui->darkDropColor->setEnabled(1);
-        ui->lightDropColor->setEnabled(1);
-    }
+        ui->darkColor->setEnabled(colorEnabled);
+        ui->lightColor->setEnabled(colorEnabled);
+        ui->darkDropColor->setEnabled(colorEnabled);
+        ui->lightDropColor->setEnabled(colorEnabled);
 }
 
 void MainWindow::on_iconCheckBox_stateChanged(int iconEnabled) // Icon theme checkbox logic
 {
-    if (ui->iconCheckBox->checkState() == 0) {
-        ui->darkIcon->setEnabled(0);
-        ui->lightIcon->setEnabled(0);
-        ui->darkDropIcon->setEnabled(0);
-        ui->lightDropIcon->setEnabled(0);
-    } else {
-        ui->darkIcon->setEnabled(1);
-        ui->lightIcon->setEnabled(1);
-        ui->darkDropIcon->setEnabled(1);
-        ui->lightDropIcon->setEnabled(1);
-    }
+        ui->darkIcon->setEnabled(iconEnabled);
+        ui->lightIcon->setEnabled(iconEnabled);
+        ui->darkDropIcon->setEnabled(iconEnabled);
+        ui->lightDropIcon->setEnabled(iconEnabled);
 }
-
 
 void MainWindow::on_lightDropStyle_currentIndexChanged(const QString &lightStyleUN) // Set light plasma style
 {
@@ -751,17 +722,10 @@ void MainWindow::on_darkDropKvantumStyle_currentIndexChanged(const QString &dark
 
 void MainWindow::on_wallCheckBox_stateChanged(int wallEnabled) // Wallpaper checkbox logic
 {
-    if (ui->wallCheckBox->checkState() == 0) {
-        ui->darkWall->setEnabled(0);
-        ui->lightWall->setEnabled(0);
-        ui->darkWallBtn->setEnabled(0);
-        ui->lightWallBtn->setEnabled(0);
-    } else {
-        ui->darkWall->setEnabled(1);
-        ui->lightWall->setEnabled(1);
-        ui->darkWallBtn->setEnabled(1);
-        ui->lightWallBtn->setEnabled(1);
-    }
+        ui->darkWall->setEnabled(wallEnabled);
+        ui->lightWall->setEnabled(wallEnabled);
+        ui->darkWallBtn->setEnabled(wallEnabled);
+        ui->lightWallBtn->setEnabled(wallEnabled);
 }
 
 void MainWindow::on_lightWallBtn_clicked() // Set light wallpaper
