@@ -618,13 +618,6 @@ void MainWindow::on_darkDropCursor_currentIndexChanged(const QString &darkCursor
 //Decoration Style
 void MainWindow::on_lightDropDecoration_currentIndexChanged(const QString &lightDecorationUN){
     lightDecoration = lightDecorationUN;
-    QList<Decoration> decList= utils.getWindowDecorations();
-    for (const auto &dt : qAsConst(decList)){
-        if (QString::compare(dt.name, darkColor, Qt::CaseInsensitive) == 0){
-            lightDecorationLibrary = dt.library;
-            lightDecorationTheme = dt.theme;
-        }
-    }
 }
 
 void MainWindow::on_darkDropDecoration_currentIndexChanged(const QString &darkDecorationUN){
