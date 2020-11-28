@@ -88,7 +88,7 @@ NB: the app is built for the K desktop environment .
 
 to uninstall run 
 
-`sudo ninja uninstall`  from the build folder 
+`sudo ninja uninstall` from the build folder 
 
 then you can delete the directory 
 
